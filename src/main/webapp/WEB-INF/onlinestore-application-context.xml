@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/TODO"
+	xmlns:context="http://www.springframework.org/schema/TODO"
+	xmlns:jdbc="http://www.springframework.org/schema/TODO"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/TODO 				http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/jdbc 					http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd 
+		http://www.springframework.org/schema/TODO	   				http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	
+	<context:component-scan base-package="TODO" />
+
+	<bean id="TODO" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="TODO" />
+		<property name="mappingLocations">
+			<list>
+				<value>classpath:TODO</value>
+				<value>classpath:TODO</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.format_sql			=	true
+				hibernate.show_sql				=	true
+			</value>
+		</property>		
+	</bean>
+
+	<!-- Embedded H2 Database -->		
+	<jdbc:embedded-database id="TODO" type="H2">
+		<jdbc:script location="classpath:org/joedayz/corespringtest/test/db/schema.sql"/>
+		<jdbc:script location="classpath:org/joedayz/corespringtest/test/db/test-data.sql"/>
+	</jdbc:embedded-database>  
+
+	<!-- Weaves in transactional advice around @Transactional methods -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- Drives transactions using Hibernate APIs when requested -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+		
+	<!-- Translates Hibernate exceptions to Spring Data Access Exceptions -->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+		
+</beans>

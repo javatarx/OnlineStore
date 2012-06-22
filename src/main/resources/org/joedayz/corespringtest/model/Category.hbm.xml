@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21/03/2011 12:08:38 PM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="org.joedayz.corespringtest.model.Category" table="TODO">
+        <id name="TODO" type="java.lang.Integer">
+            <column name="TODO" />
+            <generator class="identity" />
+        </id>
+        <property name="TODO" type="string">
+            <column name="TODO" length="50" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
